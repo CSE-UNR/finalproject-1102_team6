@@ -8,12 +8,40 @@ void displayImage();
 void saveImage();
 
 int main(){
-
-
   
+ char cmd;
+ 
+ //int rows;
+ //int cols;
+ //int img[rows][cols];
+ /*
+ printf("**ERINSTAGRAM**\n");
+ printf("1: Load image\n");
+ printf("2: Display image\n");
+ printf("3: Edit image\n");
+ printf("0: Exit\n");
+ scanf("%c", cmd);
+ 
+ switch (cmd){
+  case 1:
   
+  break;
   
+  case 2:
+   displayImage(cols, rows, img[][cols] );
+  break;
   
+  case 3:
+  
+  break;
+  
+  case 0:
+   
+  break;
+    
+ }
+  */
+  displayImage(cols, rows, img[][cols] );
   return 0 ;
 }
 
@@ -44,3 +72,44 @@ void displayImage(int col, int row, int arr[][col] ){
    printf("\n");
   }
 }
+
+
+void loadImage(/*pass in array rows cols and img[][] to change */){
+ char name[];
+ int rows;
+ int cols;
+ 
+ printf("What is the name of the image file?");
+ fgets(name, 30, stdin);
+ FILE* file = fopen(name, "r");
+ 
+ if(file == NULL){
+  printf("file does not exist ");
+ }else{
+  //find way to get #of rows and #of cols 
+  // loop through file values and assign to array
+
+  
+ }
+ 
+
+ }
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
