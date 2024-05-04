@@ -41,7 +41,7 @@ int main(){
     
  }
   */
-  displayImage(cols, rows, img[][cols] );
+//  displayImage(cols, rows, img[][cols] );
   return 0 ;
 }
 
@@ -73,9 +73,9 @@ void displayImage(int col, int row, int arr[][col] ){
   }
 }
 
-
+//-----------------------------------------------------------------
 void loadImage(/*pass in array rows cols and img[][] to change */){
- char name[];
+ char name[50];
  int rows;
  int cols;
  
@@ -91,15 +91,36 @@ void loadImage(/*pass in array rows cols and img[][] to change */){
 
   
  }
- 
 
  }
  
+//---------------------------------------------------------- 
+ void dimImage(int col, int row, int arr[][col]){
+
+  for(int r = 0; r < row; r++){
+   for(int c = 0; c < col; c++){
+    if(arr[r][c] > 0){
+     arr[r][c]--;
+    }
+    
+    
+     }
+    }
+ }
+ //---------------------------------------------------------
+ 
+ void brightImage(int col, int row, int arr[][col]){
+   for(int r = 0; r < row; r++){
+    for(int c = 0; c < col; c++){
+     if(arr[r][c] < 4){
+      arr[r][c]++;      
+     }
+  
+      }
+    }
  
  
- 
- 
- 
+ }
  
  
  
