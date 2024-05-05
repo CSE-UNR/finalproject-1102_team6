@@ -1,47 +1,85 @@
 #include <stdio.h>
 
-void dimImage();
-void brightImage();
-void cropImage();
-void loadImage();
-void displayImage();
-void saveImage();
+void dimImage(int col, int row, int arr[][col]);
+void brightImage(int col, int row, int arr[][col]);
+void cropImage(int col, int row, int arr[][col]);
+void loadImage(int col, int row, int arr[][col], int *newRow, int *newColumn);
+void displayImage(int col, int row, int arr[][col]);
+void saveImage(int col, int row, int arr[][col]);
 
 int main(){
   
- char cmd;
+ char cmd, cmd2;
  
  //int rows;
  //int cols;
- //int img[rows][cols];
+ //int img[100][100];
  /*
- printf("**ERINSTAGRAM**\n");
- printf("1: Load image\n");
- printf("2: Display image\n");
- printf("3: Edit image\n");
- printf("0: Exit\n");
- scanf("%c", cmd);
+do{	
+	printf("**ERINSTAGRAM**\n");
+ 	printf("1: Load image\n");
+ 	printf("2: Display image\n");
+ 	printf("3: Edit image\n");
+ 	printf("0: Exit\n");
+ 	scanf(" %c", cmd);
+ 
+ 
  
  switch (cmd){
-  case 1:
-  
+  case 1: '1'
+	loadImage(100, 100, img[][100], &rows, &cols);
   break;
   
-  case 2:
-   displayImage(cols, rows, img[][cols] );
+  case 2: '2'
+   	displayImage(cols, rows, img[][cols]);
   break;
   
-  case 3:
-  
+  case 3: '3'
+  	if(img[0][0]=='\0'){
+  		printf("Sorry, no image to edit\n");
+  	}else{
+  		printf("\n\n**EDITING**\n");
+  		printf("1: Crop image\n");
+		printf("2: Dim image\n");
+		printf("3: Brighten image\n");
+		printf("0: Return to main menu"\n\n");
+		printf("Choose from one of the options above: ");
+		scanf(" %c", cmd2);
+		
+		switch (cmd2){
+		  case 1: '1'
+		  	cropImage(cols, rows, img[][cols]);
+		  break;
+		  
+		  case 2: '2'
+		  	brightImage(cols, rows, img[][cols]);
+		  break;
+		  
+		  case 3
+		  	dimImage(cols, rows, img[][cols]);
+		  break;
+		  
+		  default:
+		  break;
+	}
+		
   break;
   
   case 0:
    
   break;
+  
+  default:
+	printf("Invalid option, please try again.\n");
+  break;
     
  }
-  */
-//  displayImage(cols, rows, img[][cols] );
+ 
+ 
+ }while(cmd != '0');
+ 
+ printf("\nGoodbye!");
+ 
   return 0 ;
 }
 
@@ -73,24 +111,36 @@ void displayImage(int col, int row, int arr[][col] ){
   }
 }
 
+
+*/
+
 //-----------------------------------------------------------------
-void loadImage(/*pass in array rows cols and img[][] to change */){
+void loadImage(int col, int row, int arr[][col], int *newRow, int *newCol){
  char name[50];
- int rows;
- int cols;
+ *newRows=0;
+ *newCol=0;
  
  printf("What is the name of the image file?");
- fgets(name, 30, stdin);
+ fgets(name, 49, stdin);
+ 
+ for(int nameIndex=0; name[nameIndex]!='\0' ; nameIndex++){
+ 		if(name[nameIndex]=='\n'){
+ 			name[nameIndex]='\0';
+ 
  FILE* file = fopen(name, "r");
  
  if(file == NULL){
-  printf("file does not exist ");
- }else{
-  //find way to get #of rows and #of cols 
-  // loop through file values and assign to array
-
-  
+  	printf("file does not exist ");
+ }else{ 
+ 	while(fscanf(file, "%d", &img[newRow][newCol])==1){
+ 		newRow++;
+  	//find way to get #of rows and #of cols 
+  	// loop through file values and assign to array
+	}
+  fclose(name);
  }
+
+ printf("\nImage successfully loaded!\n\n");
 
  }
  
@@ -133,29 +183,29 @@ void cropImage(int col, int row, int arr[][col]){
 	
 	printf("Which column do you want to be the new left side? ");
 	scanf("%d", &newLeft);
-	while(newLeft<1 && newleft>col){
-		printf("Invalid column value. Choose a value between 1 and %d ", col);
+	while(newLeft<1 && newleft>=col){
+		printf("Invalid column value. Choose a value between 1 and %d ", col-1);
 		scanf("%d", &newLeft);
 	}
 
 	printf("\nWhich column do you want to be the new right side? ");
 	scanf("%d", &newRight);
-	while(newRight<=newLeft && newRight>col){
-		printf("Invalid column value. Choose a value between %d and %d ",newLeft, col);
+	while(newRight<=newLeft && newRight>=col){
+		printf("Invalid column value. Choose a value between %d and %d ",newLeft, col-1);
 		scanf("%d", &newLeft);
 	}
 	
 	printf("\nWhich row do you want to be the new top? ");
 	scanf("%d", &newTop);
-	while(newTop<1 && newTop>row){
-		printf("Invalid row value. Choose a value between 1 and %d", row);
+	while(newTop<1 && newTop>=row){
+		printf("Invalid row value. Choose a value between 1 and %d", row-1);
 		scanf("%d", &newTop);
 	}
 
 	printf("\nWhich row do you want to be the new bottom? ");
 	scanf("%d", &newBottom);
-	while(newBottom<=newTop && newBottom>row){
-		printf("Invalid row value. Choose a value between %d and %d ",newTop, row);
+	while(newBottom<=newTop && newBottom>=row){
+		printf("Invalid row value. Choose a value between %d and %d ",newTop, row-1);
 		scanf("%d", &newBottom);
 	}
 	
@@ -167,7 +217,10 @@ void cropImage(int col, int row, int arr[][col]){
 		}
 	}
 	
-	displayImage(newRight,newBottom,cropImg[][newBottom];
+	displayImage(newRight,newBottom,cropImg[][newBottom]);
+	
+	saveImage(newRight,newBottom,cropImg[][newBottom]);
+	
 	return 0;
 }
 
@@ -176,16 +229,33 @@ void cropImage(int col, int row, int arr[][col]){
  void saveImage(int col, int row, int arr[][col]){
  
  	char option;
- 	char nameSave[30]
+ 	char nameSave[50]
  	
  	printf("Would you like to save? (y/n) ");
  	scanf(" &c", &option);
  	
  	if(option='y'){
  		printf("\nWhat do you want to name the image file? (include the extension) "
- 		fgets(nameSave, 30, stdin);
+ 		fgets(nameSave, 49, stdin);
+ 		
+ 		for(int nameIndex=0; name[nameIndex]!='\0' ; nameIndex++){
+ 			if(name[nameIndex]=='\n'){
+ 				name[nameIndex]='\0';
+ 			}
+ 		}
+ 			
  		FILE* file = fopen(nameSave, "w");
  		
+ 		for(int c=0; c<col ; c++){
+ 			for(int r=0; r<row ; r++){
+ 				fprintf(name,"%d", arr[r][c]);
+ 				if(r<row-1){
+ 					fprintf(name, " ");
+ 				}
+ 			}
+ 		}
+ 		fclose(name);
+ 		printf("\nImage successfully saved!\n");		
  	}
  
  }
