@@ -66,7 +66,7 @@ do{
   break;
   
   case 0:
-   
+   return; 
   break;
   
   default:
@@ -82,7 +82,8 @@ do{
  
   return 0 ;
 }
-
+*/
+//-----------------------------------------------------------
 
 void displayImage(int col, int row, int arr[][col] ){
  
@@ -112,13 +113,12 @@ void displayImage(int col, int row, int arr[][col] ){
 }
 
 
-*/
 
 //-----------------------------------------------------------------
 void loadImage(int col, int row, int arr[][col], int *newRow, int *newCol){
  char name[50];
- *newRows=0;
- *newCol=0;
+ row *newRows = 0;
+ col *newCol = 0;
  
  printf("What is the name of the image file?");
  fgets(name, 49, stdin);
@@ -132,12 +132,40 @@ void loadImage(int col, int row, int arr[][col], int *newRow, int *newCol){
  if(file == NULL){
   	printf("file does not exist ");
  }else{ 
- 	while(fscanf(file, "%d", &img[newRow][newCol])==1){
- 		newRow++;
-  	//find way to get #of rows and #of cols 
-  	// loop through file values and assign to array
+ 	//finds col
+ 	char tempC;
+ 	while(fscanf(name, "%c",tempC ) == 1){
+ 	 if(tempC != "\n"){
+ 	  col++;
+ 	 }
+ 	  
+ 	}
+ 	file = fopen(name, "r");//resets file to start 
+ 	
+ 	char temp;
+ 	while(fscanf(name, "%c", temp) == 1){//get rows       
+ 	 if(temp == "\n"){
+ 	  row++;
+ 	 }
+ 	 
+ 	 newRows++;
+ 	}
+ 	
+        file = fopen(name, "r");//resets file to start 
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
 	}
-  fclose(name);
+       fclose(file);
  }
 
  printf("\nImage successfully loaded!\n\n");
@@ -183,14 +211,14 @@ void cropImage(int col, int row, int arr[][col]){
 	
 	printf("Which column do you want to be the new left side? ");
 	scanf("%d", &newLeft);
-	while(newLeft<1 && newleft>=col){
+	while(newLeft < 1 && newLeft >= col){
 		printf("Invalid column value. Choose a value between 1 and %d ", col-1);
 		scanf("%d", &newLeft);
 	}
 
 	printf("\nWhich column do you want to be the new right side? ");
 	scanf("%d", &newRight);
-	while(newRight<=newLeft && newRight>=col){
+	while(newRight <= newLeft && newRight >= col){
 		printf("Invalid column value. Choose a value between %d and %d ",newLeft, col-1);
 		scanf("%d", &newLeft);
 	}
