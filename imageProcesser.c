@@ -117,8 +117,8 @@ void displayImage(int col, int row, int arr[][col] ){
 //-----------------------------------------------------------------
 void loadImage(int col, int row, int arr[][col], int *newRow, int *newCol){
  char name[50];
- row *newRows = 0;
- col *newCol = 0;
+  *newRow = 0;
+  *newCol = 0;
  
  printf("What is the name of the image file?");
  fgets(name, 49, stdin);
@@ -134,21 +134,21 @@ void loadImage(int col, int row, int arr[][col], int *newRow, int *newCol){
  }else{ 
  	//finds col
  	char tempC;
- 	while(fscanf(name, "%c",tempC ) == 1){
- 	 if(tempC != "\n"){
- 	  col++;
+ 	while(fscanf(file, "%c",&tempC ) == 1){
+ 	 if(tempC != '\n'){
+ 	  newCol++;
  	 }
  	  
  	}
  	file = fopen(name, "r");//resets file to start 
  	
  	char temp;
- 	while(fscanf(name, "%c", temp) == 1){//get rows       
- 	 if(temp == "\n"){
- 	  row++;
+ 	while(fscanf(file, "%c", &tempC) == 1){//get rows       
+ 	 if(temp == '\n'){
+ 	  newRow++;
  	 }
  	 
- 	 newRows++;
+ 	 newRow++;
  	}
  	
         file = fopen(name, "r");//resets file to start 
@@ -237,11 +237,11 @@ void cropImage(int col, int row, int arr[][col]){
 		scanf("%d", &newBottom);
 	}
 	
-	int crpImg[newRight][newBottom]
+	int crpImg[newRight][newBottom];
 	
-	for(int r=0;r<newBottom;r++){
+	for(int r = 0; r < newBottom ; r++ ){
 		for(int c=0;c<newRight;c++){
-			newImage[r][c]= arr[newLeft-1][newTop-1];
+			newImage[r][c]= arr[newLeft-1][newTop-1];//
 		}
 	}
 	
@@ -249,7 +249,7 @@ void cropImage(int col, int row, int arr[][col]){
 	
 	saveImage(newRight,newBottom,cropImg[][newBottom]);
 	
-	return 0;
+
 }
 
 //---------------------------------------------------------
@@ -257,14 +257,14 @@ void cropImage(int col, int row, int arr[][col]){
  void saveImage(int col, int row, int arr[][col]){
  
  	char option;
- 	char nameSave[50]
+ 	char nameSave[50];
  	
  	printf("Would you like to save? (y/n) ");
  	scanf(" &c", &option);
  	
  	if(option='y'){
- 		printf("\nWhat do you want to name the image file? (include the extension) "
- 		fgets(nameSave, 49, stdin);
+ 		printf("\nWhat do you want to name the image file? (include the extension) ");
+ 		fgets(nameSave, 49, stdin); 
  		
  		for(int nameIndex=0; name[nameIndex]!='\0' ; nameIndex++){
  			if(name[nameIndex]=='\n'){
