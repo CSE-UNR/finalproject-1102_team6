@@ -132,14 +132,15 @@ void loadImage(int col, int row, int arr[][col], int *newRow, int *newCol){
  if(file == NULL){
   	printf("file does not exist ");
  }else{ 
- 	//finds col
+ 	
  	char tempC;
- 	while(fscanf(file, "%c",&tempC ) == 1){
+ 	while(fscanf(file, "%c",&tempC ) == 1){//finds col
  	 if(tempC != '\n'){
  	  newCol++;
- 	 }
- 	  
+ 	 }	  
  	}
+ 	
+ 	fclose(file);
  	file = fopen(name, "r");//resets file to start 
  	
  	char temp;
@@ -151,12 +152,21 @@ void loadImage(int col, int row, int arr[][col], int *newRow, int *newCol){
  	 newRow++;
  	}
  	
+        fclose(file);
         file = fopen(name, "r");//resets file to start 
  	
  	
+ 	char x;// 
+ 	  for(int r = 0; r < row; r++){
+  	    for(int c = 0; c < col; c++){
+             fscanf(file, "%d",  &arr[r][c]);
+            }
+    	     fscanf(file, "%c", &x );//go to next line by scanning '\n' 
+          }
+          fclose(file);
+    }
  	
- 	
- 	
+ 	  
  	
  	
  	
@@ -165,7 +175,7 @@ void loadImage(int col, int row, int arr[][col], int *newRow, int *newCol){
  	
  	
 	}
-       fclose(file);
+     
  }
 
  printf("\nImage successfully loaded!\n\n");
